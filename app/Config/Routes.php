@@ -11,5 +11,5 @@ $routes->post('login', 'Auth::login');
 $routes->get('logout', 'Auth::logout', ['filter' => 'auth']);
 
 $routes->group('admin', ['filter' => 'auth'], static function (RouteCollection $routes): void {
-    $routes->get('/', 'Admin\Dashboard::index');
+    $routes->get('/', 'Admin\\Dashboard::index', ['filter' => 'role:dashboard.view']);
 });
