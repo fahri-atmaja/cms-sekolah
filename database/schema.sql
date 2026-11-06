@@ -245,6 +245,33 @@ CREATE TABLE IF NOT EXISTS media_library (
   INDEX idx_media_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+CREATE TABLE IF NOT EXISTS feedback_submissions (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  ticket_code VARCHAR(32) NOT NULL UNIQUE,
+  submission_type ENUM('complaint','criticism','suggestion') NOT NULL,
+  sender_name VARCHAR(120) NULL,
+  sender_email VARCHAR(120) NULL,
+  sender_phone VARCHAR(40) NULL,
+  subject VARCHAR(180) NOT NULL,
+  message LONGTEXT NOT NULL,
+  status ENUM('new','in_review','responded','closed') NOT NULL DEFAULT 'new',
+  is_read TINYINT(1) NOT NULL DEFAULT 0,
+  admin_note TEXT NULL,
+  response_message TEXT NULL,
+  handled_by BIGINT UNSIGNED NULL,
+  handled_at DATETIME NULL,
+  ip_address VARCHAR(45) NULL,
+  user_agent VARCHAR(255) NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NULL,
+  CONSTRAINT fk_feedback_handled_by FOREIGN KEY (handled_by) REFERENCES users(id)
+    ON UPDATE CASCADE ON DELETE SET NULL,
+  INDEX idx_feedback_type_status (submission_type, status),
+  INDEX idx_feedback_status_created (status, created_at),
+  INDEX idx_feedback_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS audit_logs (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   user_id BIGINT UNSIGNED NULL,
