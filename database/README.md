@@ -29,6 +29,11 @@
 - `galleries`, `gallery_items`: galeri foto.
 - `menus`, `menu_items`: navigasi website.
 - `media_library`: pustaka media.
+- `feedback_submissions`: pengaduan, kritik, dan saran dari pengunjung, termasuk status tindak lanjut dan catatan admin.
 - `audit_logs`: catatan aktivitas.
 
-Versi skema: **1.0**
+## Modul pengaduan, kritik, dan saran
+
+Tabel `feedback_submissions` menyimpan jenis masukan (pengaduan/kritik/saran), identitas pengirim yang boleh dikosongkan, subjek, isi pesan, status tindak lanjut (`new`, `in_review`, `responded`, `closed`), catatan internal admin, dan balasan admin. Pengelolaan data dilakukan melalui panel admin pada tahap implementasi modul.
+
+Versi skema: **1.1**
